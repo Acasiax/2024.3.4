@@ -48,7 +48,7 @@ struct BagView: View {
                     // .fontWeight(.semibold)
                         .foregroundColor(.gray)
                     
-                    Text(bagData.price)
+                    Text("\(bagData.price)원")
                         .fontWeight(.medium)
                     //.fontWeight(.heavy)
                         .foregroundColor(.black)

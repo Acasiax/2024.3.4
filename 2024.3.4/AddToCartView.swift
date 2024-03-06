@@ -41,7 +41,9 @@ struct AddToCartView: View {
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.trailing)
                     
-                    Text(selectedBag?.price ?? "기본 제목")
+                   // Text("\(selectedBag?.price)가격")
+                    //⛑️
+                    Text("\((selectedBag?.price ?? 0) * (selectedBag?.count ?? 0)) 원")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                 })
@@ -150,7 +152,7 @@ struct AddToCartView: View {
                     print(intoCart)
                 }
             }, label: {
-                Text("장바구니로")
+                Text("장바구니에 담기")
                     .fontWeight(.bold)
                     .foregroundColor(count > 1 ?  .white : .black)
                     .foregroundColor(isPlusButtonPressed ?  .black : .white)

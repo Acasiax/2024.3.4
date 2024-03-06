@@ -66,7 +66,7 @@ struct DetailView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                         
-                        Text(MenuData.price)
+                        Text("\(MenuData.price)원")
                             .font(.largeTitle)
                             .fontWeight(.heavy)
                             .foregroundColor(.black)

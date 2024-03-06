@@ -29,7 +29,9 @@ struct CartView: View {
                                 .font(.subheadline)
                             Text("\(product.count)개")
                                 .font(.subheadline)
-                            Text(product.price)
+                            // 가격과 수량을 곱한 총액을 표시
+                            Text("\(product.price * product.count)원")
+                            //Text("\(product.price)원")
                                 .font(.subheadline)
                             
                         }
@@ -37,13 +39,13 @@ struct CartView: View {
                 }
                 
                 HStack {
-                    Text("Total for \(cartItems.count) items: ")
+                    Text("총 \(cartItems.count)개를 담았고 총합 가격은: ")
                    // Spacer()
                     Text("$\(totalAmount)")
                 }
                 .padding()
                 
-                Button("Checkout") {
+                Button("주문하기!\n진짜 결제는 아니에요 걱정하지 마세요^^") {
                     // Implement checkout action
                 }
                 .padding()
