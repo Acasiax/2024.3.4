@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct HomeProductsHero: View {
+    
+    @EnvironmentObject var homeData: HomeViewModel // HomeViewModel에 접근
+
+    
    // @Binding var cartItems: [MenuModel]
     //@State var ccartView = CartView()
     //@State var showingCart = false
@@ -16,7 +20,7 @@ struct HomeProductsHero: View {
     @Namespace var animation
     @State var show = false
     @State var selectedBag : MenuModel!
-    @StateObject var homeData = HomeViewModel()
+   // @StateObject var homeData = HomeViewModel()
     
         //히어로 애니메이션 좋아요 이미지 움직이게
         @Namespace var CartAnimation
@@ -42,6 +46,12 @@ struct HomeProductsHero: View {
             // 조건부로 CartView 표시
                      if showingCart {
                          // CartView()를 화면에 표시
+                       //  CartView(showingCart: $showingCart)
+                         
+//                         Co(showingCart: $showingCart, cartItems: intoCart)
+//                                 .transition(.asymmetric(insertion: .opacity.combined(with: .move(edge: .bottom)), removal: .opacity.combined(with: .move(edge: .bottom))))
+//                                 .zIndex(1) // CartView를 다른 UI 요소 위에 표시하기 위해 z-index 설정
+                         
                          CartView(showingCart: $showingCart)
                              .transition(.asymmetric(insertion: .opacity.combined(with: .move(edge: .bottom)), removal: .opacity.combined(with: .move(edge: .bottom))))
                              .transition(.opacity) // 페이드 인/아웃 효과
@@ -80,8 +90,9 @@ struct HomeProductsHero: View {
                                     .background(Color.purple)
                                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                                     .overlay(
-                                        Text("\(homeData.cartItems)")
-                                       
+                                      //  Text("\(homeData.cartItems)")
+                                        
+                                        Text("\(homeData.cartItemsCount)") // HomeViewModel에서 cartItemsCount를 사용
                                        // Text("\(cartItems.count)")
                                             .font(.caption)
                                             .fontWeight(.bold)

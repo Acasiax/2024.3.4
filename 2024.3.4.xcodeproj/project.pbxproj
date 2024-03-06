@@ -20,6 +20,7 @@
 		AA5A382E2B94D32C005CD8D3 /* CustomCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5A382D2B94D32C005CD8D3 /* CustomCorner.swift */; };
 		AA5A38302B94D391005CD8D3 /* HomeProductsHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5A382F2B94D391005CD8D3 /* HomeProductsHero.swift */; };
 		AA5A38362B977F41005CD8D3 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5A38352B977F41005CD8D3 /* CartView.swift */; };
+		AA5A38382B984DC6005CD8D3 /* sso.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5A38372B984DC6005CD8D3 /* sso.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		AA5A382D2B94D32C005CD8D3 /* CustomCorner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCorner.swift; sourceTree = "<group>"; };
 		AA5A382F2B94D391005CD8D3 /* HomeProductsHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProductsHero.swift; sourceTree = "<group>"; };
 		AA5A38352B977F41005CD8D3 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		AA5A38372B984DC6005CD8D3 /* sso.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sso.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				AA5A38202B94D2EB005CD8D3 /* AddToCartView.swift */,
 				AA5A381F2B94D2EB005CD8D3 /* HomeViewModel.swift */,
 				AA5A38352B977F41005CD8D3 /* CartView.swift */,
+				AA5A38372B984DC6005CD8D3 /* sso.swift */,
 				AA5A38152B94D2CC005CD8D3 /* Assets.xcassets */,
 				AA5A38172B94D2CC005CD8D3 /* Preview Content */,
 			);
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA5A38142B94D2CB005CD8D3 /* ContentView.swift in Sources */,
+				AA5A38382B984DC6005CD8D3 /* sso.swift in Sources */,
 				AA5A382E2B94D32C005CD8D3 /* CustomCorner.swift in Sources */,
 				AA5A38302B94D391005CD8D3 /* HomeProductsHero.swift in Sources */,
 				AA5A38362B977F41005CD8D3 /* CartView.swift in Sources */,

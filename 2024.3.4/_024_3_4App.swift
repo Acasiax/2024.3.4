@@ -12,6 +12,7 @@ struct _024_3_4App: App {
     var body: some Scene {
         WindowGroup {
           HomeProductsHero()
+                .environmentObject(HomeViewModel()) // 앱에 HomeViewModel을 제공
           
         }
     }

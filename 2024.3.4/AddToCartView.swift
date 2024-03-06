@@ -8,6 +8,7 @@ import SwiftUI
 
 struct AddToCartView: View {
     
+    //@EnvironmentObject var homeData: HomeViewModel
     
     @State var count = 1
     @State private var isPlusButtonPressed: Bool = false
@@ -140,12 +141,16 @@ struct AddToCartView: View {
             // "장바구니로" 버튼 액션 내에서 selectedBag의 정보와 count 값을 사용하여 intoCart 배열에 추가
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.7)){
+                    // 장바구니 아이템 수 업데이트
+                    homeData.cartItemsCount = intoCart.count
+                  //  homeData.updateCartItemsCount // 총액을 재계산할 때마다 장바구니 아이템 수를 업데이트
                     homeData.startAnimation.toggle()
                     // selectedBag의 정보를 새로운 MenuModel 인스턴스에 복사하고, count 값을 설정
                     if let bag = selectedBag {
                         let newItem = MenuModel(image: bag.image, title: bag.title, Entitle: bag.Entitle, Explain: bag.Explain, price: bag.price, color: bag.color, count: selectedBag.count)
                         // intoCart 배열에 새 항목 추가
                         intoCart.append(newItem)
+                        homeData.updateCartItemsCount(with: 1) // 장바구니 아이템 수 업데이트
                         
                     }
                     print("📍수량\(selectedBag.count),메뉴\(selectedBag?.title), 가격\(selectedBag?.price)")
