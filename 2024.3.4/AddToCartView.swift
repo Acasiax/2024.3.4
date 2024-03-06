@@ -187,10 +187,7 @@ let sizes = ["작은 컵", "중간 컵", "큰 컵"]
 
 
 
-
-//
-
-//// "장바구니로" 버튼 액션 내에서 selectedBag의 정보와 count 값을 사용하여 intoCart 배열에 추가
+// "장바구니로" 버튼 액션 내에서 selectedBag의 정보와 count 값을 사용하여 intoCart 배열에 추가
 //Button(action: {
 //    withAnimation(.easeInOut(duration: 0.7)){
 //        homeData.startAnimation.toggle()
@@ -200,12 +197,13 @@ let sizes = ["작은 컵", "중간 컵", "큰 컵"]
 //                intoCart[index].count += count
 //            } else {
 //                // 장바구니에 상품이 없으면 새로 추가
-//                let newItem = MenuModel(image: bag.image, title: bag.title, Entitle: bag.Entitle, Explain: bag.Explain, price: bag.price, color: bag.color, count: count)
+//                let newItem = MenuModel(image: bag.image, title: bag.title, Entitle: bag.Entitle, Explain: bag.Explain, price: bag.price, color: bag.color, count: selectedBag.count)
+//                // intoCart 배열에 새 항목 추가
 //                intoCart.append(newItem)
 //            }
 //        }
-//        print("📍수량\(selectedBag?.count),메뉴\(selectedBag?.title), 가격\(selectedBag?.price)")
+//        print("📍수량\(selectedBag.count),메뉴\(selectedBag?.title), 가격\(selectedBag?.price)")
 //        print(intoCart)
 //    }
 //},
-
+//

@@ -161,7 +161,8 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
- HomeProductsHero()
+       // HomeProductsHero(cartItems: .constant(HotCoffee))
+        HomeProductsHero()
     }
 }
 

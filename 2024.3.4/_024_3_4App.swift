@@ -11,7 +11,8 @@ import SwiftUI
 struct _024_3_4App: App {
     var body: some Scene {
         WindowGroup {
-           HomeProductsHero()
+          HomeProductsHero()
+          
         }
     }
 }

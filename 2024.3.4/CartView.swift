@@ -10,13 +10,15 @@ import SwiftUI
 
 struct CartView: View {
     @Binding var showingCart: Bool
-    @State private var cartItems: [MenuModel] = intoCart
+    @State private var cartItems1: [MenuModel] = intoCart
     @State private var totalAmount = 0
 
+    
+    
     var body: some View {
         NavigationView {
             VStack {
-                List(cartItems, id: \.id) { product in
+                List(cartItems1, id: \.id) { product in
                     HStack {
                         Image(product.image)
                             .resizable()
@@ -39,7 +41,7 @@ struct CartView: View {
                 }
                 
                 HStack {
-                    Text("총 \(cartItems.count)개를 담았고 총합 가격은: ")
+                    Text("총 \(cartItems1.count)개를 담았고 총합 가격은: ")
                    // Spacer()
                     Text("$\(totalAmount)")
                 }
@@ -65,7 +67,7 @@ struct CartView: View {
                            
                        },
                        trailing: Button(action: {
-                           cartItems.removeAll()
+                           cartItems1.removeAll()
                            calculateTotal()
                        }) {
                            Image(systemName: "trash.fill")
@@ -77,7 +79,7 @@ struct CartView: View {
                }
                
     func calculateTotal() {
-        totalAmount = cartItems.reduce(0) { total, item in
+        totalAmount = cartItems1.reduce(0) { total, item in
             total + (Int(item.price) ?? 0) * item.count
         }
     }

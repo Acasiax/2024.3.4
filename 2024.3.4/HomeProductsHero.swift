@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeProductsHero: View {
-    
+   // @Binding var cartItems: [MenuModel]
     //@State var ccartView = CartView()
     //@State var showingCart = false
     @State private var showingCart = false
@@ -81,6 +81,8 @@ struct HomeProductsHero: View {
                                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                                     .overlay(
                                         Text("\(homeData.cartItems)")
+                                       
+                                       // Text("\(cartItems.count)")
                                             .font(.caption)
                                             .fontWeight(.bold)
                                             .foregroundColor(.white)
@@ -235,6 +237,7 @@ struct HomeProductsHero: View {
 
 #Preview{
     HomeProductsHero()
+    
 }
 
 
