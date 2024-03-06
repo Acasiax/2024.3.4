@@ -9,10 +9,11 @@ import SwiftUI
 
 
 class HomeViewModel: ObservableObject, Identifiable {
-    
+   
     
    // @Published var resetTrigger = false
-    @Published var count = 0 // 카트에 담긴 상품의 수를 나타내는 변수 추가
+   // @Published var count = 0 // 카트에 담긴 상품의 수를 나타내는 변수 추가
+   // @Binding var count = 1
   @Published var showCart = false
   @Published var selectedSize = ""
     
@@ -69,7 +70,7 @@ class HomeViewModel: ObservableObject, Identifiable {
             ItemAnimation = false
             saveCart = false
             cartItems += 1
-            //count = 0
+          //  count = 1
            // self.count = 0 // 카트에 담긴 상품의 수를 0으로 초기화
             
         }

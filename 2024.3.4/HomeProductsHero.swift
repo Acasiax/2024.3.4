@@ -9,6 +9,9 @@ import SwiftUI
 
 struct HomeProductsHero: View {
     
+    //@State var ccartView = CartView()
+    //@State var showingCart = false
+    @State private var showingCart = false
     @State var selectedTab = scroll_Tabs[0]
     @Namespace var animation
     @State var show = false
@@ -36,7 +39,15 @@ struct HomeProductsHero: View {
     var body: some View {
  
         ZStack{
-       
+            // 조건부로 CartView 표시
+                     if showingCart {
+                         // CartView()를 화면에 표시
+                         CartView(showingCart: $showingCart)
+                             .transition(.asymmetric(insertion: .opacity.combined(with: .move(edge: .bottom)), removal: .opacity.combined(with: .move(edge: .bottom))))
+                             .transition(.opacity) // 페이드 인/아웃 효과
+                             .transition(.move(edge: .bottom)) // 뷰가 나타날 때 애니메이션 효과 적용
+                             .zIndex(1) // CartView를 다른 UI 요소 위에 표시하기 위해 z-index 설정
+                     }
             VStack(spacing: 0){
                 ZStack{
                     
@@ -53,7 +64,15 @@ struct HomeProductsHero: View {
                         
                         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top), content: {
                             
-                            Button(action: {}, label: {
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.5)) { // This ensures the toggle is animated
+                                        self.showingCart.toggle()
+                                    }
+                                // self.showingCart.toggle()
+                                
+                                  //  CartView()
+                                
+                            }, label: {
                                 Image(systemName: "bag.fill")
                                     .font(.title3)
                                     .foregroundColor(.white)
@@ -146,15 +165,16 @@ struct HomeProductsHero: View {
             }
             //배경이 흰색일때 위에 헤더 제외한 밑에 모든 배경을 살짝 회색으로 처리해주는 것임
             .background(Color.yellow.opacity(0.05).ignoresSafeArea(.all, edges: .all))
-
-            
             //블러링
            // .blur(radius: homeData.showCart ? 50 : 0)
-            
             AddToCartView(selectedBag: $selectedBag, animation: CartAnimation)
-
                 .offset(y: homeData.showCart ? homeData.startAnimation ? 700 : 0 : 700)
                 .environmentObject(homeData)
+            
+          //  CartView()
+//                .sheet(isPresented: $showingCart) {
+//                           CartView() // CartView를 모달 형태로 표시
+//                       }
             
             
             //애니메이션

@@ -8,6 +8,7 @@ import SwiftUI
 
 struct AddToCartView: View {
     
+    
     @State var count = 1
     @State private var isPlusButtonPressed: Bool = false
     @State private var isminusButtonPressed: Bool = false
@@ -84,7 +85,7 @@ struct AddToCartView: View {
                 
                 Button(action: {
                     
-                    if count > 0{count -= 1
+                    if selectedBag.count > 0{selectedBag.count -= 1
                         isminusButtonPressed = true
                         isPlusButtonPressed = false
                     }
@@ -101,12 +102,13 @@ struct AddToCartView: View {
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
                 }
                 
-                Text("\(count)")
+                Text("\(selectedBag?.count ?? 77)")
+              //  Text("\(selectedBag.count)")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.pink)
                 
-                Button(action: {count += 1
+                Button(action: {selectedBag.count += 1
                     isPlusButtonPressed = true
                     isminusButtonPressed = false
                     
@@ -139,11 +141,12 @@ struct AddToCartView: View {
                     homeData.startAnimation.toggle()
                     // selectedBag의 정보를 새로운 MenuModel 인스턴스에 복사하고, count 값을 설정
                     if let bag = selectedBag {
-                        let newItem = MenuModel(image: bag.image, title: bag.title, Entitle: bag.Entitle, Explain: bag.Explain, price: bag.price, color: bag.color, count: count)
+                        let newItem = MenuModel(image: bag.image, title: bag.title, Entitle: bag.Entitle, Explain: bag.Explain, price: bag.price, color: bag.color, count: selectedBag.count)
                         // intoCart 배열에 새 항목 추가
                         intoCart.append(newItem)
+                        
                     }
-                    print("📍수량\(count),메뉴\(selectedBag?.title), 가격\(selectedBag?.price)")
+                    print("📍수량\(selectedBag.count),메뉴\(selectedBag?.title), 가격\(selectedBag?.price)")
                     print(intoCart)
                 }
             }, label: {
@@ -170,4 +173,37 @@ struct AddToCartView: View {
 }
 
 let sizes = ["작은 컵", "중간 컵", "큰 컵"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+
+//// "장바구니로" 버튼 액션 내에서 selectedBag의 정보와 count 값을 사용하여 intoCart 배열에 추가
+//Button(action: {
+//    withAnimation(.easeInOut(duration: 0.7)){
+//        homeData.startAnimation.toggle()
+//        if let bag = selectedBag {
+//            if let index = intoCart.firstIndex(where: { $0.id == bag.id }) {
+//                // 이미 장바구니에 상품이 있으면 수량만 업데이트
+//                intoCart[index].count += count
+//            } else {
+//                // 장바구니에 상품이 없으면 새로 추가
+//                let newItem = MenuModel(image: bag.image, title: bag.title, Entitle: bag.Entitle, Explain: bag.Explain, price: bag.price, color: bag.color, count: count)
+//                intoCart.append(newItem)
+//            }
+//        }
+//        print("📍수량\(selectedBag?.count),메뉴\(selectedBag?.title), 가격\(selectedBag?.price)")
+//        print(intoCart)
+//    }
+//},
 
