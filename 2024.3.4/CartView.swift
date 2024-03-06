@@ -26,12 +26,33 @@ struct CartView: View {
                             VStack(alignment: .leading) {
                                 Text(product.title)
                                     .font(.headline)
-                                Text(product.Explain)
-                                    .font(.subheadline)
+//                                Text(product.Explain)
+//                                    .font(.subheadline)
                                 Text("\(product.count)개")
                                     .font(.subheadline)
                                 Text("\(product.price * product.count)원")
                                     .font(.subheadline)
+                                
+                            }
+                            Spacer()
+                            Button(){
+                                if let index = intoCart.firstIndex(where: { $0.id == product.id }) {
+                                        // Remove the product at the found index
+                                        intoCart.remove(at: index)
+                                        // Recalculate the total amount after item removal
+                                        calculateTotal()
+                                    }
+                                
+                            } label: {
+                                Rectangle()
+                                    .frame(width: 50, height: 30, alignment: .center)
+                                    .cornerRadius(5)
+                                    .overlay(
+                                       // Image(systemName: "trash")
+                                        Text("삭제")
+                                            .foregroundColor(.white)
+                                    )
+                                    .foregroundColor(.red)
                             }
                         }
                     }
@@ -40,26 +61,51 @@ struct CartView: View {
                         calculateTotal()
                     }
                 }
-
+                
                 HStack {
                     Text("총 \(intoCart.count)개를 담았고 총합 가격은: ")
                     Text("$\(totalAmount)")
                 }
                 .padding()
-
-                Button("주문하기!\n진짜 결제는 아니에요 걱정하지 마세요^^") {
-                    // Implement checkout action
+                Spacer()
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .foregroundColor(.green)
+                        .opacity(0.8)
+                        .frame(width: 350, height: 120)
+                    VStack {
+                        Text("총합 가격")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20))
+                            .frame(width: 350, alignment: .leading)
+                            .padding(.leading, 60)
+                        Text("$\(totalAmount)")
+                            .foregroundColor(.white)
+                            .font(.system(size: 26, weight: .bold))
+                            .frame(width: 350, alignment: .leading)
+                            .padding(.leading, 60)
+                    }
+                    Button() {
+                        
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder()
+                                .frame(width: 120, height: 50)
+                                .foregroundColor(.white)
+                            Text("주문하기 >")
+                                .foregroundColor(.white)
+                                .bold()
+                        }
+                    }.offset(x: 80)
                 }
-                .padding()
-                .foregroundColor(.white)
-                .background(Color.blue)
-                .cornerRadius(10)
+
             }
-            .navigationTitle("Cart")
+            .navigationTitle("장바구니")
             .navigationBarItems(leading: Button(action: {
                 showingCart.toggle()
             }) {
-                Image(systemName: "xmark.circle")
+                Image(systemName: "chevron.backward.circle")
                     .foregroundColor(.black)
             }, trailing: Button(action: {
                 intoCart.removeAll()
