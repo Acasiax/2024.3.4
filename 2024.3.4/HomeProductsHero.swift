@@ -8,22 +8,16 @@
 import SwiftUI
 
 struct HomeProductsHero: View {
-    
     @EnvironmentObject var homeData: HomeViewModel // HomeViewModel에 접근
 
-    
-   // @Binding var cartItems: [MenuModel]
-    //@State var ccartView = CartView()
-    //@State var showingCart = false
     @State private var showingCart = false
     @State var selectedTab = scroll_Tabs[0]
     @Namespace var animation
     @State var show = false
     @State var selectedBag : MenuModel!
-   // @StateObject var homeData = HomeViewModel()
     
-        //히어로 애니메이션 좋아요 이미지 움직이게
-        @Namespace var CartAnimation
+    //히어로 애니메이션 좋아요 이미지 움직이게
+    @Namespace var CartAnimation
     
     var filteredItems: [MenuModel] {
            switch selectedTab {
@@ -45,13 +39,7 @@ struct HomeProductsHero: View {
         ZStack{
             // 조건부로 CartView 표시
                      if showingCart {
-                         // CartView()를 화면에 표시
-                       //  CartView(showingCart: $showingCart)
-                         
-//                         Co(showingCart: $showingCart, cartItems: intoCart)
-//                                 .transition(.asymmetric(insertion: .opacity.combined(with: .move(edge: .bottom)), removal: .opacity.combined(with: .move(edge: .bottom))))
-//                                 .zIndex(1) // CartView를 다른 UI 요소 위에 표시하기 위해 z-index 설정
-                         
+  
                          CartView(showingCart: $showingCart)
                              .transition(.asymmetric(insertion: .opacity.combined(with: .move(edge: .bottom)), removal: .opacity.combined(with: .move(edge: .bottom))))
                              .transition(.opacity) // 페이드 인/아웃 효과
@@ -69,19 +57,13 @@ struct HomeProductsHero: View {
                                 .foregroundColor(.orange)
                         })
                         Spacer(minLength: 0)
-                        
-                      
-                        
+
                         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top), content: {
                             
                             Button(action: {
-                                withAnimation(.easeInOut(duration: 0.5)) { // This ensures the toggle is animated
+                                withAnimation(.easeInOut(duration: 0.5)) {
                                         self.showingCart.toggle()
                                     }
-                                // self.showingCart.toggle()
-                                
-                                  //  CartView()
-                                
                             }, label: {
                                 Image(systemName: "bag.fill")
                                     .font(.title3)
@@ -90,10 +72,8 @@ struct HomeProductsHero: View {
                                     .background(Color.purple)
                                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                                     .overlay(
-                                      //  Text("\(homeData.cartItems)")
-                                        
-                                        Text("\(homeData.cartItemsCount)") // HomeViewModel에서 cartItemsCount를 사용
-                                       // Text("\(cartItems.count)")
+
+                                        Text("\(homeData.cartItemsCount)") // HomeViewModel에서
                                             .font(.caption)
                                             .fontWeight(.bold)
                                             .foregroundColor(.white)
@@ -101,10 +81,8 @@ struct HomeProductsHero: View {
                                             .background(Color.orange)
                                             .clipShape(Circle())
                                             .offset(x: 15, y: -10)
-                                           // .opacity(homeData.cartItems != 0 ? 1 : 0)
                                     )
                             })
-                       
                         })
       
                     }.overlay(
@@ -116,23 +94,17 @@ struct HomeProductsHero: View {
                 }
                 .padding()
                 .padding(.top,UIApplication.shared.windows.first?
-                    .safeAreaInsets.top)
-                
+                .safeAreaInsets.top)
                 .background(Color.green).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
                 
-                ScrollView(.vertical, showsIndicators: false, content:
-                            {
-                    
+                ScrollView(.vertical, showsIndicators: false, content: {
                     VStack{
-
                         HStack{
-                            
                             Text("카페")
                                 .font(.title)
                                 .fontWeight(.heavy)
                                 .foregroundColor(.black)
-                            
                             Spacer()
                         }
                         .padding(.horizontal)
@@ -145,7 +117,6 @@ struct HomeProductsHero: View {
                                 ForEach(scroll_Tabs, id: \.self){tab in
                                     //탭 버튼
                                     TabButton(title: tab, selectedTab: $selectedTab, animation: animation)
-                                    
                                 }
                             }
                             .padding(.horizontal)
@@ -153,21 +124,15 @@ struct HomeProductsHero: View {
                         })
                         
                         LazyVGrid(columns: Array(repeating: GridItem(.flexible(),spacing: 15), count: 2),spacing: 15){
-                            //ForEach(bags){bag in
                             ForEach(filteredItems){bag in
                                 BagView(bagData: bag, animation: animation)
                                     .onTapGesture {
                                         withAnimation(.easeIn){
-                                            
                                             selectedBag = bag
-                                        //    show.toggle()
                                             homeData.showCart.toggle()
-                                            
                                         }
                                     }
-                                
                             }
-                            
                         }
                         .padding()
                         .padding(.top,10)
@@ -183,11 +148,7 @@ struct HomeProductsHero: View {
             AddToCartView(selectedBag: $selectedBag, animation: CartAnimation)
                 .offset(y: homeData.showCart ? homeData.startAnimation ? 700 : 0 : 700)
                 .environmentObject(homeData)
-            
-          //  CartView()
-//                .sheet(isPresented: $showingCart) {
-//                           CartView() // CartView를 모달 형태로 표시
-//                       }
+
             
             
             //애니메이션
@@ -224,11 +185,8 @@ struct HomeProductsHero: View {
                 //전체적인 뷰의 스크린 넓이 세팅?
                 .frame(width: getRect().width)
                 .offset(y: homeData.endAnimation ? 500 : 0)
-                
             }
-
         }
-  
         .background(Color.green.opacity(0.19))
         .ignoresSafeArea(.all, edges: .top)
         .ignoresSafeArea(.all, edges: .bottom)
@@ -236,21 +194,18 @@ struct HomeProductsHero: View {
         .onChange(of: homeData.endAnimation, perform: { value in
             if homeData.endAnimation{
                 homeData.resetAll()
-                
             }
         })
-        
     }
 }
 
 
-
-
 #Preview{
+
     HomeProductsHero()
+              .environmentObject(HomeViewModel()) // HomeViewModel의 인스턴스를 생성하고 환경 객체로 추가
     
 }
-
 
 extension View {
     func getRect()->CGRect{

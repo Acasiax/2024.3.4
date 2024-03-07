@@ -8,8 +8,6 @@ import SwiftUI
 
 struct AddToCartView: View {
     
-    //@EnvironmentObject var homeData: HomeViewModel
-    
     @State var count = 1
     @State private var isPlusButtonPressed: Bool = false
     @State private var isminusButtonPressed: Bool = false
@@ -17,32 +15,38 @@ struct AddToCartView: View {
     @EnvironmentObject var homeData: HomeViewModel
     var animation: Namespace.ID
     @Namespace var CartAnimation
-   
-    
     
     var body: some View {
-        
         VStack{
+            HStack{
+                Button(action: {
+                    withAnimation {
+                        homeData.showCart.toggle()
+                    }
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.black)
+                        .font(.title)
+                        .padding(.leading, 15)
+                        .padding(.top, 5)
+                }
+                Spacer()
+            }
             HStack(spacing: 15){
+                
                 if !homeData.startAnimation{
                     Image(selectedBag?.image ?? "따뜻한카푸치노")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                   //     .matchedGeometryEffect(id: "SHOE", in: animation)
                         .matchedGeometryEffect(id: "SHOE", in: CartAnimation)
                     //.padding(.horizontal)
                 }
                 
                 VStack(alignment: .trailing, spacing: 10, content: {
-                 
-                   
                     Text(selectedBag?.title ?? "기본 제목")
-                    //Text(selectedBag.title)
                         .fontWeight(.semibold)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.trailing)
-                    
-                   // Text("\(selectedBag?.price)가격")
                     //⛑️
                     Text("\((selectedBag?.price ?? 0) * (selectedBag?.count ?? 0)) 원")
                         .fontWeight(.bold)
@@ -76,27 +80,25 @@ struct AddToCartView: View {
                             .frame(maxWidth: .infinity)
                             .background(homeData.selectedSize == size ? Color.orange : Color.black.opacity(0.06))
                             .cornerRadius(10)
-                        
                     })
                 }
             })
             .padding(.top)
-            
-            
-            
+
             HStack(spacing: 20){
-                
                 Button(action: {
-                    
                     if selectedBag.count > 0{selectedBag.count -= 1
                         isminusButtonPressed = true
                         isPlusButtonPressed = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                            // Revert isPlusButtonPressed back to false after 2 seconds
+                            isminusButtonPressed = false
+                        }
                     }
-                    
                 }){
                     Image(systemName: "minus")
                         .font(.title2)
-                        
+                    
                         .frame(width: 35, height: 35)
                         .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray,lineWidth: 1))
                         .foregroundColor(isminusButtonPressed ? Color.white : Color.gray)
@@ -106,7 +108,6 @@ struct AddToCartView: View {
                 }
                 
                 Text("\(selectedBag?.count ?? 77)")
-              //  Text("\(selectedBag.count)")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.pink)
@@ -114,26 +115,22 @@ struct AddToCartView: View {
                 Button(action: {selectedBag.count += 1
                     isPlusButtonPressed = true
                     isminusButtonPressed = false
-                    
+                    // Use DispatchQueue.main.asyncAfter to delay the execution of the code inside the block
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                        isPlusButtonPressed = false
+                    }
                 }) {
-                    
                     Image(systemName: "plus")
                         .font(.title2)
-                    //.foregroundColor(.gray)
                         .frame(width: 35, height: 35)
                         .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray,lineWidth: 1))
                     // isPlusButtonPressed의 값에 따라 조건부 배경색 설정
                         .foregroundColor(isPlusButtonPressed ? Color.white : Color.gray)
                         .background(isPlusButtonPressed ? Color.orange : Color.clear) // 오렌지 색상으로 변경
-                    
-                        
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                    
                 }
-                
                 Spacer()
-             
             }
             .padding(.horizontal)
             
@@ -143,7 +140,7 @@ struct AddToCartView: View {
                 withAnimation(.easeInOut(duration: 0.7)){
                     // 장바구니 아이템 수 업데이트
                     homeData.cartItemsCount = intoCart.count
-                  //  homeData.updateCartItemsCount // 총액을 재계산할 때마다 장바구니 아이템 수를 업데이트
+                    //  homeData.updateCartItemsCount // 총액을 재계산할 때마다 장바구니 아이템 수를 업데이트
                     homeData.startAnimation.toggle()
                     // selectedBag의 정보를 새로운 MenuModel 인스턴스에 복사하고, count 값을 설정
                     if let bag = selectedBag {
@@ -151,7 +148,6 @@ struct AddToCartView: View {
                         // intoCart 배열에 새 항목 추가
                         intoCart.append(newItem)
                         homeData.updateCartItemsCount(with: 1) // 장바구니 아이템 수 업데이트
-                        
                     }
                     print("📍수량\(selectedBag.count),메뉴\(selectedBag?.title), 가격\(selectedBag?.price)")
                     print(intoCart)
@@ -164,16 +160,16 @@ struct AddToCartView: View {
                     .padding(.vertical)
                     .frame(maxWidth: .infinity)
                     .background(homeData.selectedSize == "" ? Color.black.opacity(0.06) : Color.orange)
-                    .background(isPlusButtonPressed ? Color.orange : Color.clear) // 오렌지 색상으로 변경
+                //.background(isPlusButtonPressed ? Color.orange : Color.clear) // 오렌지 색상으로 변경
+                    .background((selectedBag?.count ?? 0) > 0 ? Color.orange : Color.clear)
                     .cornerRadius(18)
             })
-            .disabled(count == 0)
+            .disabled(selectedBag?.count == 0 || selectedBag == nil)
             .padding(.top)
         }
         .padding()
         .background(Color.pink.opacity(0.2))
         .background(Color.white)
-        
         .cornerRadius(20)
         .padding(40)
     }

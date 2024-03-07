@@ -103,7 +103,9 @@ struct CartView: View {
             }
             .navigationTitle("장바구니")
             .navigationBarItems(leading: Button(action: {
+                withAnimation{
                 showingCart.toggle()
+                    }
             }) {
                 Image(systemName: "chevron.backward.circle")
                     .foregroundColor(.black)
@@ -117,6 +119,7 @@ struct CartView: View {
                 calculateTotal()
             }
         }
+        
     }
 
     func calculateTotal() {

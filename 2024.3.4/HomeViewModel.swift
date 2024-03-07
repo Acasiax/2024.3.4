@@ -10,12 +10,8 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject, Identifiable {
     @Published var cartItemsCount = 0 // 장바구니 아이템 수를 추적하는 프로퍼티
-    
-   // @Published var resetTrigger = false
-   // @Published var count = 0 // 카트에 담긴 상품의 수를 나타내는 변수 추가
-   // @Binding var count = 1
-  @Published var showCart = false
-  @Published var selectedSize = ""
+    @Published var showCart = false
+    @Published var selectedSize = ""
     
     @Published var startAnimation = false
     @Published var ItemAnimation = false
@@ -27,18 +23,13 @@ class HomeViewModel: ObservableObject, Identifiable {
     
     @Published var cartItems = 0
     
-    // 아이템이 추가되거나 장바구니에서 제거될 때마다 이 메서드를 호출합니다.
-//       func updateCartItemsCount() {
-//          
-//           self.cartItemsCount = intoCart.count
-//       }
     
     
     // 장바구니 아이템 수를 업데이트하는 함수
-        func updateCartItemsCount(with count: Int) {
-           // cartItemsCount += count
-            self.cartItemsCount = intoCart.count
-        }
+    func updateCartItemsCount(with count: Int) {
+        // cartItemsCount += count
+        self.cartItemsCount = intoCart.count
+    }
     
     
     
@@ -87,8 +78,6 @@ class HomeViewModel: ObservableObject, Identifiable {
             ItemAnimation = false
             saveCart = false
             cartItems += 1
-          //  count = 1
-           // self.count = 0 // 카트에 담긴 상품의 수를 0으로 초기화
             
         }
     }

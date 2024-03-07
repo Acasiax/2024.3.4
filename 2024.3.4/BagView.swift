@@ -19,7 +19,6 @@ struct BagView: View {
             ZStack{
                 //상품 배경색
                 Color(.yellow).opacity(0.5)
-                //  Color(bagData.image)
                     .cornerRadius(15)
                 
                 VStack{
