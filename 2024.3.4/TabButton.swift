@@ -21,7 +21,7 @@ struct TabButton: View {
                 Text(title)
                     .fontWeight(.heavy)
                     .foregroundColor(selectedTab == title ? .orange : .gray)
-                
+                   
                 //애니메이션 더하기
                 if selectedTab == title {
                     
@@ -31,7 +31,7 @@ struct TabButton: View {
                         .matchedGeometryEffect(id: "Tab", in: animation)
                 }
             })
-            .frame(width: 100)
+            .frame(width: 70)
         })
     }
 }

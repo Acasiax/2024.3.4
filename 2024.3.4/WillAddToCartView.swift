@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct AddToCartView: View {
+struct WillAddToCartView: View {
     
     @State var count = 1
     @State private var isPlusButtonPressed: Bool = false
@@ -39,50 +39,53 @@ struct AddToCartView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .matchedGeometryEffect(id: "SHOE", in: CartAnimation)
+                        .frame(width: 160, height: 160)
                     //.padding(.horizontal)
                 }
-                
-                VStack(alignment: .trailing, spacing: 10, content: {
-                    Text(selectedBag?.title ?? "기본 제목")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.trailing)
-                    //⛑️
-                    Text("\((selectedBag?.price ?? 0) * (selectedBag?.count ?? 0)) 원")
-                        .fontWeight(.bold)
-                        .foregroundColor(.black)
-                })
+
                 
             }
-            .padding()
+            
+           
+            VStack(alignment: .trailing, spacing: 10, content: {
+                Text(selectedBag?.title ?? "기본 제목")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .foregroundColor(.black)
+                   // .multilineTextAlignment(.center)
+                
+                Text("\((selectedBag?.price ?? 0) * (selectedBag?.count ?? 0)) 원")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .foregroundColor(.black)
+            })
             
             Divider()
-            
-            Text("사이즈 선택")
-                .font(.caption)
+            Text("수량 선택")
+                .font(.title3)
                 .fontWeight(.semibold)
                 .foregroundColor(.gray)
                 .padding(.vertical)
-            
-            let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 4)
-            
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 15, content: {
-                ForEach(sizes,id: \.self){size in
-                    Button(action: {
-                        withAnimation{
-                            homeData.selectedSize = size
-                        }
-                    }, label: {
-                        Text(size)
-                            .fontWeight(.semibold)
-                            .foregroundColor(homeData.selectedSize == size ? .white : .black)
-                            .padding(.vertical)
-                            .frame(maxWidth: .infinity)
-                            .background(homeData.selectedSize == size ? Color.orange : Color.black.opacity(0.06))
-                            .cornerRadius(10)
-                    })
-                }
-            })
+//            
+//            let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 4)
+//            
+//            LazyVGrid(columns: columns, alignment: .leading, spacing: 15, content: {
+//                ForEach(sizes,id: \.self){size in
+//                    Button(action: {
+//                        withAnimation{
+//                            homeData.selectedSize = size
+//                        }
+//                    }, label: {
+//                        Text(size)
+//                            .fontWeight(.semibold)
+//                            .foregroundColor(homeData.selectedSize == size ? .white : .black)
+//                            .padding(.vertical)
+//                            .frame(maxWidth: .infinity)
+//                            .background(homeData.selectedSize == size ? Color.orange : Color.black.opacity(0.06))
+//                            .cornerRadius(10)
+//                    })
+//                }
+//            })
             .padding(.top)
 
             HStack(spacing: 20){
@@ -154,9 +157,10 @@ struct AddToCartView: View {
                 }
             }, label: {
                 Text("장바구니에 담기")
+                    .font(.title2)
                     .fontWeight(.bold)
-                    .foregroundColor(count > 1 ?  .white : .black)
-                    .foregroundColor(isPlusButtonPressed ?  .black : .white)
+                    .foregroundColor(selectedBag?.count ?? 99 > 0 ?  .white : .black)
+                 //   .foregroundColor(isPlusButtonPressed ?  .black : .white)
                     .padding(.vertical)
                     .frame(maxWidth: .infinity)
                     .background(homeData.selectedSize == "" ? Color.black.opacity(0.06) : Color.orange)

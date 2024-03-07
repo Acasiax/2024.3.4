@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HomeProductsHero: View {
     @EnvironmentObject var homeData: HomeViewModel // HomeViewModel에 접근
-
     @State private var showingCart = false
     @State var selectedTab = scroll_Tabs[0]
     @Namespace var animation
@@ -145,9 +144,10 @@ struct HomeProductsHero: View {
             .background(Color.yellow.opacity(0.05).ignoresSafeArea(.all, edges: .all))
             //블러링
            // .blur(radius: homeData.showCart ? 50 : 0)
-            AddToCartView(selectedBag: $selectedBag, animation: CartAnimation)
+            WillAddToCartView(selectedBag: $selectedBag, animation: CartAnimation)
                 .offset(y: homeData.showCart ? homeData.startAnimation ? 700 : 0 : 700)
                 .environmentObject(homeData)
+           ClearView()
 
             
             

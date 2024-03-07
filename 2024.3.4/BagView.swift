@@ -35,7 +35,7 @@ struct BagView: View {
                     
                     Text(bagData.title)
                         .fontWeight(.heavy)
-                        .fontWeight(.bold)
+                        .font(.title3)
                         .foregroundColor(.black)
                     
                     Text(bagData.Entitle)
